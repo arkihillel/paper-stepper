@@ -1,99 +1,14 @@
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../iron-selector/iron-selectable.html">
-<link rel="import" href="../iron-menu-behavior/iron-menu-behavior.html">
-<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-styles/default-theme.html">
-<link rel="import" href="../paper-styles/shadow.html">
-<link rel="import" href="../iron-collapse/iron-collapse.html">
-<link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html">
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="animations/fade-in-slide-from-right-animation.html">
-<link rel="import" href="animations/fade-out-slide-right-animation.html">
-<link rel="import" href="animations/fade-in-slide-from-left-animation.html">
-<link rel="import" href="animations/fade-out-slide-left-animation.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selectable.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-styles/default-theme.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="paper-step.html">
 
 <!--
 Missing Doc
-
-
-## Styling
-
-The default color values respect the material specifications. For basic configuration, just defines the `--primary-color` for your app.
-
-The stepper has a complexe interface so many custom properties are available, use them this way :
-
-```html
-<style is="custom-style">
-
-  paper-stepper {
-    --paper-stepper-custom-property: value;
-  }
-
-  paper-step {
-    --paper-step-custom-property: value;
-  }
-
-</style>
-
-<paper-stepper>
-  <paper-step></paper-step>
-  <paper-step></paper-step>
-</paper-stepper>
-```
-
-Note, for sizing the stepper and steps depending on the layout, use the following instead of setting 'height' and 'max-height' :
-- `--paper-stepper-horizontal-opened-height`
-- `--paper-stepper-vertical-max-height`
-- `--paper-vertical-step-max-height`
-
-### Stepper
-
-Custom property | Description | Default
-------|-------------|----------
-`--paper-stepper-horizontal-opened-height` | The horizontal opened stepper height | 450px
-`--paper-stepper-horizontal-opening-transition-duration`| The horizontal stepper opening transition duration (ms) | 500
-`--paper-stepper-vertical-max-height`| The vertical stepper max height so it has a scrollable area | undefined
-
-### Step
-
-Custom property | Description | Default
-------|-------------|----------
-`--paper-step-connector-line-background` | The connector lines background color. | `--divider-color`
-`--paper-step-label-hover-background` | The steps label background when hovered. | rgba(0,0,0,0.04)
-`--paper-step-ink-color` | The steps ripple effect ink color. | `--divider-color`
-
-### Step text label
-
-Custom property | Description | Default
-------|-------------|----------
-`--paper-step-disabled-label-text-color` | The no-selectable steps label text color. | `--paper-grey-400`
-`--paper-step-selectable-label-text-color` | The selectable steps label text color. | `--paper-grey-600`
-`--paper-step-opened-label-text-color` | The opened steps label text color. | `--light-theme-text-color`
-`--paper-step-label-text-font-size` | The steps label text font size. | 14px
-`--paper-step-label-optional-text-font-size` | The steps label optional text font size. | 12px
-
-### Step badge
-
-Custom property | Description | Default
-------|-------------|----------
-`--paper-step-badge-background` | The badge background. | `--paper-grey-300`
-`--paper-step-badge-color` | The badge color. | `--dark-theme-text-color`
-`--paper-step-badge-icon-width` | The badge icon width. | 16px
-`--paper-step-badge-icon-height` | The badge icon height. | 16px
-`--paper-step-opened-badge-background` | The opened steps badge background. | `--primary-color`
-`--paper-step-saved-badge-background` | The saved steps badge background. | `--primary-color`
-`--paper-step-selectable-hovered-badge-background` | The no-opened no-saved selectable steps badge background. | `--paper-grey-500`
-
-### Vertical step
-
-Custom property | Description | Default
-------|-------------|----------
-`--paper-vertical-step-continue-button-background` | The continue button background. | `--primary-color`
-`--paper-vertical-step-continue-button-color` | The continue button background. | `--dark-theme-text-color`
-`--paper-vertical-step-max-height` | The unrolled step content max-height. | 400px
-`--paper-vertical-step-transition-duration` | The step opening transition duration | 500ms
 
 
 @element paper-stepper
@@ -108,16 +23,10 @@ Custom property | Description | Default
         box-sizing: border-box;
         @apply(--layout-vertical);
         @apply(--shadow-elevation-2dp);
-        background: white;
+        /*background: white;*/
         border-radius: 1px;
       }
-      #verticalResponsiveWidth {
-        width: var(--paper-stepper-vertical-responsive-width, 0px);
-        visibility: hidden;
-      }
-
       /* Horizontal layout styles */
-
       :host([vertical]) {
         padding: 4px 0;
         @apply(--layout-scroll);
@@ -125,8 +34,8 @@ Custom property | Description | Default
       }
       :host(:not([vertical])) {
         position: relative;
-        /* Note: this variable is updated by the stepper itself, don't use it on user side */
         height: var(--label-wrapper-height);
+        /* Note: this variable is updated by the stepper itself, don't use it on user side */
         max-height: var(--label-wrapper-height);
         transition: max-height var(--paper-stepper-horizontal-opening-transition-duration, 300ms), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
       }
@@ -139,7 +48,7 @@ Custom property | Description | Default
       :host(:not([vertical])[opened]), :host(:not([vertical]).collapsing) {
         height: var(--paper-stepper-horizontal-opened-height, 450px);
       }
-      :host(:not([vertical])) #content-wrapper {
+      #label-wrapper {
         @apply(--shadow-elevation-2dp);
         @apply(--layout-horizontal);
         @apply(--layout-flex-none);
@@ -149,13 +58,13 @@ Custom property | Description | Default
         overflow: hidden;
       }
       .flex {
-        @apply(--layout-flex);
+        /*@apply(--layout-flex);*/
       }
-      #buttonsWrapper {
+      /*#buttonsWrapper {
         @apply(--layout-horizontal);
         margin: 0 24px 24px 24px;
         overflow: hidden;
-      }
+      }*/
       #continueButton:not([disabled]) {
         color: var(--primary-color);
       }
@@ -165,30 +74,28 @@ Custom property | Description | Default
       [hidden] {
         display: none;
       }
-      :host(:not[vertical]) #content-wrapper:not(:hover) ::content paper-step[opened] {
+      :host(:not[vertical]) #label-wrapper:not(:hover) ::content paper-step[opened] {
         overflow: visible;
       }
+      content {
+        height: 100%;
+      }
     </style>
-    
-    <!-- Hidden block with width equals to the responsive threshold -->
-    <div id="verticalResponsiveWidth"></div>
-    
-    <!-- This wrapper contains the horizontal stepper header or the full vertical stepper -->
-    <div id="content-wrapper">
+    <template is="dom-if" if="[[vertical]]" restamp>
       <content select="[[selectable]]"></content>
-    </div>
-
-    <!-- Slideshow and buttons area for horizontal layout -->
-    <template is="dom-if" if="[[!vertical]]">
-      <div class="flex"></div>
-      <div id="buttonsWrapper">
+    </template>
+    <template is="dom-if" if="[[!vertical]]" restamp>
+      <div id="label-wrapper">
+        <content select="[[selectable]]"></content>
+      </div>
+      <!-- <div class="flex"></div> -->
+      <!-- <div id="buttonsWrapper">
         <paper-button hidden$="[[!hasBackButton]]" disabled=[[!_hasBackStep]] on-tap="back">[[backText]]</paper-button>
         <span class="flex"></span>
         <paper-button hidden$="[[!hasSkipButton]]" disabled="[[!_canSkip]]" on-tap="progress">[[skipText]]</paper-button>
         <paper-button id="continueButton" on-tap="continue">{{_choosePrimaryButtonText(_attrForSelectedStepPrimaryButtonText, finishText, continueText, updateText)}}</paper-button>
-      </div>
+      </div> -->
     </template>
-
   </template>
 
   <script>
@@ -196,13 +103,9 @@ Custom property | Description | Default
     Polymer({
 
       is: 'paper-stepper',
-
       behaviors: [
-        Polymer.IronMenuBehavior,
-        Polymer.NeonAnimationRunnerBehavior,
-        Polymer.IronResizableBehavior
+        Polymer.IronSelectableBehavior
       ],
-
       /**
        * Fired when the stepper progress.
        *
@@ -228,7 +131,6 @@ Custom property | Description | Default
         vertical: {
           type: Boolean,
           value: false,
-          notify: true,
           reflectToAttribute: true
         },
         backText: {
@@ -287,42 +189,15 @@ Custom property | Description | Default
           value: 'opened',
           readOnly: true
         },
+        activateEvent: {
+          value: 'select-step',
+          readOnly: true
+        },
         /**
          * Note: if you decide to change this attribute, take care to only include `<paper-step>` elements in your `<paper-stepper>`
          */
         selectable: {
           value: 'paper-step'
-        },
-        /**
-         * Multi mode is not allowed for now in paper-stepper.
-         */
-        mutli: {
-          value: false,
-          readOnly: true
-        },
-        responsiveCheckFrequence: {
-          type: Number,
-          value: 200
-        },
-        animateInitialSelection: {
-          type: Boolean,
-          value: false
-        },
-        horizontalHigherEntryAnimation: {
-          type: String,
-          value: 'fade-in-slide-from-right-animation'
-        },
-        horizontalHigherExitAnimation: {
-          type: String,
-          value: 'fade-out-slide-right-animation'
-        },
-        horizontalLowerEntryAnimation: {
-          type: String,
-          value: 'fade-in-slide-from-left-animation'
-        },
-        horizontalLowerExitAnimation: {
-          type: String,
-          value: 'fade-out-slide-left-animation'
         },
         _skipStepIndex: {
           type: Number,
@@ -350,25 +225,23 @@ Custom property | Description | Default
         _attrForSelectedStepPrimaryButtonText: {
           type: String,
           computed: '_compute__attrForSelectedStepPrimaryButtonText(_selectedIndex, stepNumber)'
+        },
+        _previousAnimatedStep: {
+          type: Object,
+          value: null,
+          readOnly: true
+        },
+        _previousSelected: {
+          type: Object,
+          readOnly: true
         }
-      },
-
-      _previousAnimatedStep: null,
-
-      _previousSelected: null,
-
-      keyBindings: {
-        'left': '_onLeftKey',
-        'right': '_onRightKey'
       },
 
       listeners: {
         'iron-items-changed': '_initializeSteps',
         'paper-step-saved': '_stepSaved',
         'transitionend': '_transitionEnd',
-        'step-horizontal-label-resize': '_updateStepperClosedMaxHeight',
-        'iron-resize': '_resizeHandler',
-        'neon-animation-finish': '_onNeonAnimationFinish'
+        'step-horizontal-label-resize': '_updateStepperClosedMaxHeight'
       },
 
       observers: [
@@ -378,10 +251,6 @@ Custom property | Description | Default
         '_forwardAlternativeLabel(alternativeLabel)',
         '_forwardStepperData(linear, backText, optionalText, finishText, continueText, skipText, updateText, hasSkipButton, hasBackButton)'
       ],
-
-      attached: function() {
-        this._responsiveCheck();
-      },
 
       /**
        * Missing Doc
@@ -437,28 +306,6 @@ Custom property | Description | Default
         this.items[0]._set_previousSaved(true);
       },
 
-      get _isRTL() {
-        return window.getComputedStyle(this)['direction'] === 'rtl';
-      },
-
-      _onLeftKey: function(event) {
-        if (this._isRTL) {
-          this._focusNext();
-        } else {
-          this._focusPrevious();
-        }
-        event.detail.keyboardEvent.preventDefault();
-      },
-      
-      _onRightKey: function(event) {
-        if (this._isRTL) {
-          this._focusPrevious();
-        } else {
-          this._focusNext();
-        }
-        event.detail.keyboardEvent.preventDefault();
-      },
-
       /**
        * Work around: Override the method from IronSelectableBehavior to only allow the selection of selectable step. https://github.com/PolymerElements/iron-selector/issues/99
        */
@@ -477,12 +324,12 @@ Custom property | Description | Default
             } else {
               this.selected = null;
             }
-            this._previousSelected = null;
+            this._set_previousSelected(null);
             return;
           }
         }
         this._selection.select(item);
-        this._previousSelected = item;
+        this._set_previousSelected(item);
         this._set_selectedIndex(this.indexOf(item));
         // Check for items, since this array is populated only when attached
         // Since Number(0) is falsy, explicitly check for undefined
@@ -493,7 +340,7 @@ Custom property | Description | Default
 
       _updateStepperClosedMaxHeight: function() {
         this.debounce('updateStepperClosedMaxHeight', function() {
-          this.customStyle['--label-wrapper-height'] = this.$$('#content-wrapper').clientHeight + 'px';
+          this.customStyle['--label-wrapper-height'] = this.$$('#label-wrapper').clientHeight + 'px';
           this.updateStyles('--label-wrapper-height');
         });
       },
@@ -529,7 +376,6 @@ Custom property | Description | Default
             step._setVertical(vertical);
           });
         }
-        this.setAttribute('role', vertical ? 'menu': 'menubar');
       },
 
       _forwardStepperData: function(linear, backText, optionalText, finishText, continueText, skipText, updateText, hasSkipButton, hasBackButton) {
@@ -564,48 +410,33 @@ Custom property | Description | Default
       },
 
       _selectedIndexChanged: function(newValue, oldValue) {
-        if (!this.vertical && newValue >=0 && oldValue >= 0) {
+        if (this.vertical) {
+          return;
+        }
+        if (newValue >=0 && oldValue >= 0) {
           var oldStep = this.items[oldValue], newStep = this.items[newValue];
+          if (oldStep.classList.contains('neon-animating')) {
+            oldStep.cancelAnimation();
+            oldStep.fire('neon-animation-canceled');
+          }
           if (newStep.classList.contains('neon-animating')) {
-            this.cancelAnimation();
+            newStep.cancelAnimation();
+            newStep.fire('neon-animation-canceled');
           }
           if (this._previousAnimatedStep && this._previousAnimatedStep.classList.contains('neon-animating')) {
-            this.cancelAnimation();
-            this.toggleClass('neon-animating', false, this._previousAnimatedStep);
+            this._previousAnimatedStep.cancelAnimation();
+            this._previousAnimatedStep.fire('neon-animation-canceled');
           }
-          var forward = newValue - oldValue > 0;
-
-          this.animationConfig = {
-            'new-step-entry': {
-              animatable: newStep,
-              type: forward ?
-                newStep.horizontalHigherEntryAnimation && 'higher-step-entry' :
-                newStep.horizontalLowerEntryAnimation && 'lower-step-entry'
-            },
-            'old-step-exit': {
-              animatable: oldStep,
-              type: forward ?
-                oldStep.horizontalLowerExitAnimation && 'lower-step-exit' :
-                oldStep.horizontalHigherExitAnimation && 'higher-step-exit'
-            }
-          };
-          if (this.animationConfig['new-step-entry'].type) {
-            this.playAnimation('new-step-entry', {step: newStep});
-            this.toggleClass('neon-animating', true, newStep);
+          if (newValue - oldValue > 0) {
+            newStep.playAnimation('higher-step-entry');
+            oldStep.playAnimation('lower-step-exit');
+          } else {
+            newStep.playAnimation('lower-step-entry');
+            oldStep.playAnimation('higher-step-exit');
           }
-          if (this.animationConfig['old-step-exit'].type) {
-            this.playAnimation('old-step-exit', {step: oldStep});
-            this.toggleClass('neon-animating', true, oldStep);
-          }
-
-          this._previousAnimatedStep = oldStep;
-        }
-      },
-
-      _onNeonAnimationFinish: function(event) {
-        var step = event.detail.step;
-        if (step) {
-          this.toggleClass('neon-animating', false, step);
+          this.toggleClass('neon-animating', true, this.items[newValue]);
+          this.toggleClass('neon-animating', true, this.items[oldValue]);
+          this._set_previousAnimatedStep(oldStep);
         }
       },
 
@@ -643,18 +474,6 @@ Custom property | Description | Default
           stepNumber: this.stepNumber
         };
         this.items.map(function(step, i) {
-          if (this.horizontalHigherEntryAnimation && !step.horizontalHigherEntryAnimation) {
-            step.horizontalHigherEntryAnimation = this.horizontalHigherEntryAnimation;
-          }
-          if (this.horizontalHigherExitAnimation && !step.horizontalHigherExitAnimation) {
-            step.horizontalHigherExitAnimation = this.horizontalHigherExitAnimation;
-          }
-          if (this.horizontalLowerEntryAnimation && !step.horizontalLowerEntryAnimation) {
-            step.horizontalLowerEntryAnimation = this.horizontalLowerEntryAnimation;
-          }
-          if (this.horizontalLowerExitAnimation && !step.horizontalLowerExitAnimation) {
-            step.horizontalLowerExitAnimation = this.horizontalLowerExitAnimation;
-          }
           step._setIndex(i + 1);
           step._set_stepper(this);
           step._setVertical(this.vertical);
@@ -709,21 +528,7 @@ Custom property | Description | Default
 
       _choosePrimaryButtonText: function(_attrForSelectedStepPrimaryButtonText) {
         return this[_attrForSelectedStepPrimaryButtonText];
-      },
-
-      _resizeHandler: function() {
-        this.debounce('paper-stepper-responsive-check', function() {
-          this._responsiveCheck();
-        }, this.responsiveCheckFrequence);
-      },
-
-      _responsiveCheck: function() {
-        var verticalResponsiveWidth = this.$.verticalResponsiveWidth.clientWidth;
-        if (verticalResponsiveWidth) {
-          this.vertical = !(this.clientWidth > verticalResponsiveWidth);
-        }
       }
-
     });
 
   </script>

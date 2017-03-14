@@ -12,7 +12,7 @@ See [component page](http://zecat.github.io/paper-stepper)
 
 ## installation
 
-`bower install -S Zecat/paper-stepper#v2.0-beta.5`
+`bower install -S Zecat/paper-stepper`
 
 ## Basic use
 
