@@ -428,14 +428,16 @@ Missing Doc
             this._previousAnimatedStep.fire('neon-animation-canceled');
           }
           if (newValue - oldValue > 0) {
-            newStep.playAnimation('higher-step-entry');
-            oldStep.playAnimation('lower-step-exit');
+            // All commented below because of a strange off axis behavior on mobile
+            // 
+            // newStep.playAnimation('higher-step-entry');
+            // oldStep.playAnimation('lower-step-exit');
           } else {
-            newStep.playAnimation('lower-step-entry');
-            oldStep.playAnimation('higher-step-exit');
+            // newStep.playAnimation('lower-step-entry');
+            // oldStep.playAnimation('higher-step-exit');
           }
-          this.toggleClass('neon-animating', true, this.items[newValue]);
-          this.toggleClass('neon-animating', true, this.items[oldValue]);
+          // this.toggleClass('neon-animating', true, this.items[newValue]);
+          // this.toggleClass('neon-animating', true, this.items[oldValue]);
           this._set_previousAnimatedStep(oldStep);
         }
       },
